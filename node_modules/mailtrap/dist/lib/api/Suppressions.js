@@ -1,0 +1,14 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Suppressions_1 = __importDefault(require("./resources/Suppressions"));
+class SuppressionsBaseAPI {
+    constructor(client, accountId) {
+        const suppressions = new Suppressions_1.default(client, accountId);
+        this.getList = suppressions.getList.bind(suppressions);
+        this.delete = suppressions.delete.bind(suppressions);
+    }
+}
+exports.default = SuppressionsBaseAPI;

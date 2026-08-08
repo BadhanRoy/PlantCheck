@@ -1,0 +1,1 @@
+{"version":3,"file":"contactlist.d.ts","sourceRoot":"","sources":["../../../src/types/api/contactlist.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,WAAW;IAC1B,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;CACd;AAED,MAAM,WAAW,kBAAkB;IACjC,IAAI,EAAE,MAAM,CAAC;CACd;AAED,MAAM,WAAW,uBAAuB;IACtC,MAAM,CAAC,EAAE,MAAM,CAAC;CACjB"}

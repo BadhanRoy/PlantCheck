@@ -1,0 +1,1 @@
+{"version":3,"file":"mail.d.ts","sourceRoot":"","sources":["../../src/adapters/mail.ts"],"names":[],"mappings":"AAUA,OAAO,EAAc,IAAI,EAAe,SAAS,EAAE,MAAM,mBAAmB,CAAC;AAC7E,OAAO,EAAE,mBAAmB,EAAE,MAAM,oBAAoB,CAAC;AAKzD;;;;;GAKG;AACH,MAAM,CAAC,OAAO,UAAU,SAAS,CAAC,IAAI,EAAE,mBAAmB,GAAG,IAAI,GAAG,SAAS,CAyD7E"}

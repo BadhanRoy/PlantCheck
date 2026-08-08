@@ -1,0 +1,16 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Contacts_1 = __importDefault(require("./resources/Contacts"));
+class ContactsBaseAPI {
+    constructor(client, accountId) {
+        const contacts = new Contacts_1.default(client, accountId);
+        this.get = contacts.get.bind(contacts);
+        this.create = contacts.create.bind(contacts);
+        this.update = contacts.update.bind(contacts);
+        this.delete = contacts.delete.bind(contacts);
+    }
+}
+exports.default = ContactsBaseAPI;

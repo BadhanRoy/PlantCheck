@@ -1,0 +1,1 @@
+{"version":3,"file":"account-accesses.d.ts","sourceRoot":"","sources":["../../../src/types/api/account-accesses.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,oBAAoB,GAAG;IACjC,WAAW,CAAC,EAAE,MAAM,EAAE,CAAC;IACvB,QAAQ,CAAC,EAAE,MAAM,EAAE,CAAC;IACpB,UAAU,CAAC,EAAE,MAAM,EAAE,CAAC;CACvB,CAAC;AAEF,MAAM,MAAM,2BAA2B,GAAG;IACxC,EAAE,EAAE,MAAM,CAAC;CACZ,CAAC"}

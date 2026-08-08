@@ -1,0 +1,1 @@
+{"version":3,"file":"EmailLogs.d.ts","sourceRoot":"","sources":["../../../src/lib/api/EmailLogs.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAEtC,OAAO,YAAY,MAAM,uBAAuB,CAAC;AAEjD,MAAM,CAAC,OAAO,OAAO,gBAAgB;IAC5B,OAAO,EAAE,YAAY,CAAC,SAAS,CAAC,CAAC;IAEjC,GAAG,EAAE,YAAY,CAAC,KAAK,CAAC,CAAC;gBAEpB,MAAM,EAAE,aAAa,EAAE,SAAS,EAAE,MAAM;CAKrD"}

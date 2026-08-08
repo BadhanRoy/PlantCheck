@@ -1,0 +1,1 @@
+{"version":3,"file":"sub-accounts.d.ts","sourceRoot":"","sources":["../../../src/types/api/sub-accounts.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,UAAU,GAAG;IACvB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;CACd,CAAC;AAEF,MAAM,MAAM,sBAAsB,GAAG;IACnC,IAAI,EAAE,MAAM,CAAC;CACd,CAAC"}
