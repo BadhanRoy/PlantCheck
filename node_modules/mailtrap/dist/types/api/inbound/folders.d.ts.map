@@ -1,0 +1,1 @@
+{"version":3,"file":"folders.d.ts","sourceRoot":"","sources":["../../../../src/types/api/inbound/folders.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,MAAM;IACrB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;CACd;AAED,MAAM,WAAW,YAAY;IAC3B,IAAI,EAAE,MAAM,CAAC;CACd"}

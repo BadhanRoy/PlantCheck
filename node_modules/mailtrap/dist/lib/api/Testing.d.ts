@@ -1,0 +1,13 @@
+import { AxiosInstance } from "axios";
+import ProjectsApi from "./resources/Projects";
+import InboxesApi from "./resources/Inboxes";
+import MessagesApi from "./resources/Messages";
+import AttachmentsApi from "./resources/Attachments";
+export default class TestingAPI {
+    projects: ProjectsApi;
+    inboxes: InboxesApi;
+    messages: MessagesApi;
+    attachments: AttachmentsApi;
+    constructor(client: AxiosInstance, accountId: number);
+}
+//# sourceMappingURL=Testing.d.ts.map

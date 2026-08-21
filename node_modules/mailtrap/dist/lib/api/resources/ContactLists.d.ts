@@ -1,0 +1,29 @@
+import { AxiosInstance } from "axios";
+import { ContactList, ContactListOptions, ContactListsListOptions } from "../../../types/api/contactlist";
+export default class ContactListsApi {
+    private client;
+    private contactListsURL;
+    constructor(client: AxiosInstance, accountId: number);
+    /**
+     * Get all contact lists. Optionally filter by name via a case-insensitive
+     * prefix match with `search`.
+     */
+    getList(options?: ContactListsListOptions): Promise<ContactList[]>;
+    /**
+     * Get a contact list by `listId`.
+     */
+    get(listId: number): Promise<ContactList>;
+    /**
+     * Creates a new contact list.
+     */
+    create(data: ContactListOptions): Promise<ContactList>;
+    /**
+     * Updates an existing contact list by `listId`.
+     */
+    update(listId: number, data: ContactListOptions): Promise<ContactList>;
+    /**
+     * Deletes a contact list by ID.
+     */
+    delete(listId: number): Promise<import("axios").AxiosResponse<any, any, {}>>;
+}
+//# sourceMappingURL=ContactLists.d.ts.map

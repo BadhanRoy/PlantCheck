@@ -1,0 +1,1 @@
+{"version":3,"file":"headers.d.ts","sourceRoot":"","sources":["../../src/adapters/headers.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,uBAAuB,CAAC;AAEhD,OAAO,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAEpD;;;;;GAKG;AACH,MAAM,CAAC,OAAO,UAAU,YAAY,CAClC,iBAAiB,EAAE,OAAO,GACzB,eAAe,CA8BjB"}

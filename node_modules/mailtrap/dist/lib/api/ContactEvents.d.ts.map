@@ -1,0 +1,1 @@
+{"version":3,"file":"ContactEvents.d.ts","sourceRoot":"","sources":["../../../src/lib/api/ContactEvents.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAEtC,OAAO,gBAAgB,MAAM,2BAA2B,CAAC;AAEzD,MAAM,CAAC,OAAO,OAAO,oBAAoB;IAChC,MAAM,EAAE,gBAAgB,CAAC,QAAQ,CAAC,CAAC;gBAE9B,MAAM,EAAE,aAAa,EAAE,SAAS,EAAE,MAAM;CAIrD"}

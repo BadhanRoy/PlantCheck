@@ -1,0 +1,1 @@
+{"version":3,"file":"verify-signature.d.ts","sourceRoot":"","sources":["../../../src/lib/webhooks/verify-signature.ts"],"names":[],"mappings":";AAEA;;GAEG;AACH,eAAO,MAAM,oBAAoB,KAAK,CAAC;AAEvC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA8BG;AACH,MAAM,CAAC,OAAO,UAAU,sBAAsB,CAC5C,OAAO,EAAE,MAAM,GAAG,MAAM,EACxB,SAAS,EAAE,MAAM,EACjB,aAAa,EAAE,MAAM,GACpB,OAAO,CAiDT"}
