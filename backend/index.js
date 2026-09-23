@@ -28,7 +28,11 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const PYTHON_API_URL = process.env.PYTHON_API_URL || "http://localhost:8000";
+const CHATBOT_API_URL = process.env.CHATBOT_API_URL || "http://localhost:8001";
+const CHATBOT_PORT = Number(process.env.CHATBOT_PORT) || 8001;
+const CHATBOT_ROOT = path.resolve(__dirname, "../Smart_Agro_Bot-main/backend");
 let predictionProcess;
+let chatbotProcess;
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 10 * 1024 * 1024 },
@@ -77,10 +81,57 @@ const ensurePredictionService = async () => {
         console.error("Unable to start the Python prediction service:", error.message);
     });
 
-    if (await waitForPredictionService()) {
+    if (await waitForPredictionService(120000)) {
         console.log(`🧠 Prediction service started at ${PYTHON_API_URL}`);
     } else {
         console.error(`Python prediction service did not become ready at ${PYTHON_API_URL}.`);
+    }
+};
+
+const waitForChatbotService = async (timeoutMs = 15000) => {
+    const deadline = Date.now() + timeoutMs;
+    while (Date.now() < deadline) {
+        try {
+            const response = await fetch(`${CHATBOT_API_URL}/api/health`);
+            if (response.ok) {
+                return true;
+            }
+        } catch {
+            // The service may still be starting.
+        }
+        await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+    return false;
+};
+
+const ensureChatbotService = async () => {
+    if (await waitForChatbotService(500)) {
+        console.log(`💬 Chatbot service is ready at ${CHATBOT_API_URL}`);
+        return;
+    }
+
+    const virtualEnvironmentPython = process.platform === "win32"
+        ? path.resolve(__dirname, "../.venv/Scripts/python.exe")
+        : path.resolve(__dirname, "../.venv/bin/python");
+    const pythonCommand = process.env.PYTHON_COMMAND
+        || (existsSync(virtualEnvironmentPython) ? virtualEnvironmentPython : "python");
+    if (!existsSync(path.join(CHATBOT_ROOT, "main.py"))) {
+        console.error(`Chatbot service entrypoint was not found at ${CHATBOT_ROOT}.`);
+        return;
+    }
+    chatbotProcess = spawn(
+        pythonCommand,
+        ["-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", String(CHATBOT_PORT)],
+        { cwd: CHATBOT_ROOT, stdio: "inherit" },
+    );
+    chatbotProcess.on("error", (error) => {
+        console.error("Unable to start the chatbot service:", error.message);
+    });
+
+    if (await waitForChatbotService()) {
+        console.log(`💬 Chatbot service started at ${CHATBOT_API_URL}`);
+    } else {
+        console.error(`Chatbot service did not become ready at ${CHATBOT_API_URL}.`);
     }
 };
 
@@ -208,6 +259,7 @@ const start = async () => {
     }
 
     await ensurePredictionService();
+    await ensureChatbotService();
     app.listen(PORT, () => {
         connectDB();
         startWateringReminderLoop();

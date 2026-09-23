@@ -231,6 +231,10 @@ class PlantDiseaseModel:
                     self.model = model
         return self.model
 
+    def load(self) -> None:
+        """Load the checkpoint and feature backbones before serving predictions."""
+        self._get_model()
+
     def _probabilities(self, model: ShuffleNetV2, input_tensor: torch.Tensor) -> torch.Tensor:
         features = model.features(input_tensor)
         probabilities = torch.softmax(model.fc(features), dim=1)
@@ -424,7 +428,7 @@ class PlantDiseaseModel:
         model = self._get_model()
         if self._checkpoint_kind == "fusion":
             head = model["head"]
-            with torch.no_grad():
+            with torch.inference_mode():
                 fused = self._fusion_features(image)
                 logits = head(fused)
                 probabilities = torch.softmax(logits, dim=1)[0]

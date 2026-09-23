@@ -1,5 +1,6 @@
 import io
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 import numpy as np
@@ -62,6 +63,17 @@ model = PlantDiseaseModel(
 )
 
 
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Load the checkpoint and large feature backbones during service startup so
+    # the first user prediction is not delayed by model initialization.
+    model.load()
+    yield
+
+
+app.router.lifespan_context = lifespan
+
+
 @app.get("/health")
 def health() -> dict:
     return {
@@ -70,6 +82,7 @@ def health() -> dict:
         "classes": len(model.class_labels),
         "image_size": model.image_size,
         "model_ready": model.model_path.exists(),
+        "model_loaded": model.model is not None,
     }
 
 
@@ -100,5 +113,4 @@ async def predict(file: UploadFile = File(...)) -> dict:
             detail=f"Prediction failed inside the model service: {exc}",
         ) from exc
     return prediction
-
 

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
+import SmartAgroBot from '../smartagro/SmartAgroBot.jsx';
+import '../smartagro/styles.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3003';
+const CHATBOT_API_URL = import.meta.env.VITE_CHATBOT_API_URL || 'http://localhost:8001';
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
 
 const formatPredictionLabel = (label) => {
@@ -37,6 +40,7 @@ function DiagnosePage() {
   ]);
   const [chatInput, setChatInput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   const fileInputRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -378,23 +382,49 @@ function DiagnosePage() {
     const message = text || chatInput;
     if (!message.trim()) return;
 
+    const history = chatMessages
+      .filter((chatMessage) => chatMessage.role !== 'system')
+      .map((chatMessage) => ({
+        role: chatMessage.role === 'user' ? 'user' : 'assistant',
+        content: chatMessage.text,
+      }));
+
     setChatMessages(prev => [...prev, { role: 'user', text: message }]);
     setChatInput('');
+    setIsChatLoading(true);
 
-    setTimeout(() => {
-      const responses = [
-        'That\'s a great question! Let me help you with that.',
-        'Based on what you\'re describing, this could be due to overwatering.',
-        'Try checking the soil moisture before watering.',
-        'Make sure your plant is getting enough indirect sunlight.',
-        'Yellow leaves often indicate nutrient deficiency or overwatering.',
-        'Have you checked for pests on the underside of the leaves?',
-        'Consider repotting if the plant is root-bound.',
-        'The ideal temperature for most houseplants is 65-75°F.'
-      ];
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      setChatMessages(prev => [...prev, { role: 'bot', text: randomResponse }]);
-    }, 1000);
+    try {
+      const formData = new FormData();
+      formData.append('text', message.trim());
+      formData.append('history_json', JSON.stringify(history));
+
+      if (image && ['image/jpeg', 'image/png'].includes(image.type)) {
+        formData.append('image', image);
+      }
+
+      const response = await fetch(`${CHATBOT_API_URL}/api/chat`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data?.detail || 'Chatbot request failed');
+      }
+
+      setChatMessages(prev => [...prev, {
+        role: 'bot',
+        text: data.reply || 'I could not generate a response. Please try again.',
+      }]);
+    } catch (error) {
+      console.error('Chatbot error:', error);
+      setChatMessages(prev => [...prev, {
+        role: 'bot',
+        text: 'SmartAgro Bot is unavailable right now. Please restart the PlantCheck server and try again.',
+      }]);
+    } finally {
+      setIsChatLoading(false);
+    }
   }
 
   const toggleVoiceRecording = () => {
@@ -663,101 +693,14 @@ function DiagnosePage() {
       {/* ===== CHATBOT MODAL ===== */}
       {isChatOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/40 flex items-end md:items-center justify-center p-0 md:p-4"
+          className="fixed inset-0 z-[60] bg-black/60 p-0"
           onClick={() => setIsChatOpen(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 w-full md:max-w-lg rounded-t-2xl md:rounded-lg shadow-xl flex flex-col h-[80vh] md:h-[600px] transition-colors duration-200"
+            className="h-full w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Plant Assistant</h3>
-                <span className="text-xs text-green-600 dark:text-green-400">● Online</span>
-              </div>
-              <button
-                onClick={() => setIsChatOpen(false)}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl leading-none"
-                title="Close chat"
-              >
-                ×
-              </button>
-            </div>
-
-            {/* Chat Messages */}
-            <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
-              {chatMessages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[85%] rounded-lg px-4 py-2 ${
-                      msg.role === 'user'
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
-                    }`}
-                  >
-                    <p className="text-sm">{msg.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Chat Input */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Type your question..."
-                  className="flex-1 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-green-500 dark:focus:border-green-400 transition-colors"
-                />
-                <button
-                  onClick={() => handleSendMessage()}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors text-sm"
-                >
-                  Send
-                </button>
-                <button
-                  onClick={toggleVoiceRecording}
-                  className={`px-3 py-2 rounded-md transition-colors text-sm ${
-                    isRecording
-                      ? 'bg-red-600 text-white hover:bg-red-700'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
-                  title={isRecording ? 'Stop recording' : 'Start voice input'}
-                >
-                  {isRecording ? '⏹️' : '🎤'}
-                </button>
-              </div>
-              {isRecording && (
-                <p className="text-sm text-red-600 dark:text-red-400 mt-1">🎙️ Recording... Speak now</p>
-              )}
-              <div className="mt-2 flex gap-2 flex-wrap">
-                <button
-                  onClick={() => setChatInput('My plant has yellow leaves')}
-                  className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 transition-colors"
-                >
-                  Yellow leaves
-                </button>
-                <button
-                  onClick={() => setChatInput('How often should I water?')}
-                  className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 transition-colors"
-                >
-                  Watering tips
-                </button>
-                <button
-                  onClick={() => setChatInput('My plant has pests')}
-                  className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 transition-colors"
-                >
-                  Pest control
-                </button>
-              </div>
-            </div>
+            <SmartAgroBot />
           </div>
         </div>
       )}
