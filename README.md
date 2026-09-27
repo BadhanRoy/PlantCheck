@@ -1,8 +1,8 @@
 ﻿# PlantCheck
 
-PlantCheck is a plant-care application with:
+PlantCheck — Smart Agriculture Platform
 
-- Plant disease diagnosis powered by a DINOv2 and CLIP feature-fusion model  got 78.34% accuracy on PlantWild Dataset.
+- Plant disease diagnosis powered by a DINOv2 + CLIP feature-fusion model, achieving 78.83% accuracy on the PlantWild dataset.
 - Crop journals, watering reminders, weather information, and crop care tools.
 - Community posts, comments, authentication, and diagnosis history.
 
@@ -120,3 +120,8 @@ To lint the frontend:
 ```powershell
 npm run lint
 ```
+## References
+
+1. Wei, T., Chen, Z., Huang, Z., & Yu, X. (2024).
+   *Benchmarking In-the-Wild Multimodal Plant Disease Recognition and A Versatile Baseline.*
+   ACM International Conference on Multimedia.
