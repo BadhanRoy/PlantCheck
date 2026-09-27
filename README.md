@@ -2,59 +2,15 @@
 
 PlantCheck is a plant-care application with:
 
-- Plant disease diagnosis powered by a DINOv2 and CLIP feature-fusion model.
+- Plant disease diagnosis powered by a DINOv2 and CLIP feature-fusion model  got 78.34% accuracy on PlantWild Dataset.
 - Crop journals, watering reminders, weather information, and crop care tools.
 - Community posts, comments, authentication, and diagnosis history.
 
-## Architecture
+## System Architecture
 
-```mermaid
-flowchart LR
-	subgraph Client[Web client]
-		UI[React app<br/>Auth, Dashboard, Community,<br/>Crop Care, Disease Diagnosis]
-	end
-
-	subgraph Server[Node.js backend]
-		API[Express REST API<br/>JWT authentication]
-		Auth[Auth service<br/>Email verification, Google OAuth]
-		Community[Community service<br/>Posts and comments]
-		CropCare[Crop Care service<br/>Profiles, journals, reminders]
-		Diagnosis[Diagnosis service<br/>History and image uploads]
-		Proxy[Prediction proxy<br/>POST /predict]
-	end
-
-	subgraph AI[Python prediction service]
-		FastAPI[FastAPI image API]
-		Model[Image preprocessing<br/>DINOv2 + CLIP feature fusion]
-		Checkpoint[Model checkpoint<br/>backend/models]
-	end
-
-	subgraph Data[Data and integrations]
-		Mongo[(MongoDB Atlas<br/>Users, posts, crops, diagnoses)]
-		GridFS[(MongoDB GridFS<br/>Diagnosis images)]
-		Email[Gmail SMTP]
-		Google[Google OAuth]
-		Weather[Weather provider]
-	end
-
-	UI -->|REST + session cookie| API
-	API --> Auth
-	API --> Community
-	API --> CropCare
-	API --> Diagnosis
-	API --> Proxy
-	Auth --> Mongo
-	Auth --> Email
-	Auth --> Google
-	Community --> Mongo
-	CropCare --> Mongo
-	CropCare --> Weather
-	Diagnosis --> Mongo
-	Diagnosis --> GridFS
-	Proxy -->|Multipart image| FastAPI
-	FastAPI --> Model
-	Model --> Checkpoint
-```
+<p align="center">
+  <img src="docs/Github.drawio.png" alt="PlantCheck System Architecture" width="100%">
+</p>
 
 ## Requirements
 
@@ -70,7 +26,7 @@ The model files and class labels are included in `backend/models`. The predictio
 The DINOv2 and CLIP backbones are loaded through Hugging Face Transformers on first use.
 
 ```text
-backend/models/ShuffleNetV2_DINOv2_FINAL.pth
+backend/models/fusion_head_final.pth
 backend/models/class.json
 ```
 
@@ -79,20 +35,14 @@ backend/models/class.json
 Open PowerShell in the project folder and install the Node dependencies:
 
 ```powershell
-npm install
 cd frontend
 npm install
-cd ..
+cd backend
+npm install
+
 ```
 
-Create a `.env` file in the project root. There is no `.env.example` in this repository, so add the
-variables directly:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-Open `.env` and set at least these values:
+Create a `.env` file in the project root. and open your `.env` and set at least these values:
 
 ```env
 PORT=3003
@@ -127,6 +77,7 @@ Use two PowerShell terminals.
 From the project folder:
 
 ```powershell
+cd backend
 npm run dev
 ```
 
@@ -154,61 +105,6 @@ http://localhost:5173
 | Backend health | http://localhost:3003/api/health |
 | Prediction health | http://localhost:8000/health |
 
-## Disease detection
-
-The Diagnose page sends an image to `POST /predict`. The Node backend forwards it to the Python
-FastAPI service, which preprocesses the image at 224x224 and predicts with the DINOv2 + CLIP
-feature-fusion model. Class labels are loaded from `backend/models/class.json`. Diagnosis history
-and uploaded diagnosis images are saved separately through the authenticated `/api/diagnoses`
-routes; images use MongoDB GridFS.
-
-To run the Python service manually for debugging:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-cd backend
-python -m uvicorn main:app --host 127.0.0.1 --port 8000
-```
-
-If you start it manually, start the backend afterward. The backend will reuse an existing
-healthy service on port 8000.
-
-## Troubleshooting
-
-### Port 3003 is already in use
-
-Check the process using the port:
-
-```powershell
-Get-NetTCPConnection -LocalPort 3003 -State Listen
-```
-
-Stop the process using its `OwningProcess` value, then run `npm run dev` again:
-
-```powershell
-Stop-Process -Id <PROCESS_ID> -Force
-npm run dev
-```
-
-Starting the backend twice is unnecessary; the second start will detect the existing PlantCheck
-API and exit cleanly.
-
-### Python prediction service is unavailable
-
-Make sure the virtual environment is active and dependencies are installed:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r backend\requirements.txt
-```
-
-Then restart the backend. Check `http://localhost:8000/health` and confirm it returns status
-`ok`.
-
-### MongoDB connection fails
-
-Confirm `MONGO_URI` is correct, the MongoDB network access list allows your IP address, and the
-database user has permission to connect.
 
 ## Production build
 
