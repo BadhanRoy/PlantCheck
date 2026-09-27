@@ -11,14 +11,14 @@ import {
 
 // =========================
 // SHARED BUTTON CLASSES
-// (Matching Crop Care button design)
+// (Matching Dashboard button design — green CTA)
 // =========================
 
 const btnPrimary =
-  "inline-flex items-center justify-center bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium border border-emerald-200/60 dark:border-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-500/20 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium border border-green-200/60 dark:border-green-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
 
 const btnSolid =
-  "inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm shadow-emerald-600/20 hover:shadow-md hover:shadow-emerald-600/30 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center bg-green-600 hover:bg-green-700 active:bg-green-800 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm shadow-green-600/20 hover:shadow-md hover:shadow-green-600/30 disabled:opacity-50 disabled:cursor-not-allowed";
 
 export default function CropCare() {
   const [crops, setCrops] = useState([]);
@@ -85,24 +85,24 @@ export default function CropCare() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white font-sans antialiased p-4 md:p-8 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 text-gray-900 dark:text-white font-sans antialiased p-4 md:p-8 transition-colors duration-300">
       <div className="mx-auto max-w-7xl">
 
         {/* HERO HEADER */}
-        <div className="mb-8 overflow-hidden rounded-2xl ring-1 ring-emerald-200/60 dark:ring-emerald-500/20 bg-gradient-to-br from-emerald-50 via-white to-teal-50/50 dark:from-emerald-950/30 dark:via-slate-900 dark:to-slate-900 p-6 md:p-8 transition-colors duration-300">
+        <div className="mb-8 overflow-hidden rounded-2xl ring-1 ring-blue-100 dark:ring-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur p-6 md:p-8 transition-colors duration-300">
 
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-400">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-green-700 dark:text-green-400">
                 Crop Care Dashboard
               </p>
 
-              <h1 className="mt-2 text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+              <h1 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
                 🌱 Smart Crop Care
               </h1>
 
-              <p className="mt-2 max-w-xl text-sm text-slate-500 dark:text-slate-400">
+              <p className="mt-2 max-w-xl text-sm text-gray-600 dark:text-gray-400">
                 Monitor your crops and get location-aware watering guidance based on current weather.
               </p>
             </div>
@@ -143,9 +143,9 @@ export default function CropCare() {
 
         {/* LOADING */}
         {loading && (
-          <div className="rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-slate-200 dark:ring-slate-800 py-16 text-center shadow-sm shadow-slate-200/50 dark:shadow-none transition-colors duration-300">
+          <div className="rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur ring-1 ring-blue-100 dark:ring-gray-700 py-16 text-center shadow-sm transition-colors duration-300">
             <div className="mb-3 text-5xl">🌱</div>
-            <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               Loading your crops...
             </p>
           </div>
@@ -153,14 +153,14 @@ export default function CropCare() {
 
         {/* EMPTY STATE */}
         {!loading && crops.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-12 text-center shadow-sm shadow-slate-200/50 dark:shadow-none transition-colors duration-300">
+          <div className="rounded-2xl border border-dashed border-blue-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur p-12 text-center shadow-sm transition-colors duration-300">
             <div className="mb-5 text-6xl">🌿</div>
 
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
               No crops added yet
             </h2>
 
-            <p className="mt-2 mb-6 text-slate-500 dark:text-slate-400 text-sm">
+            <p className="mt-2 mb-6 text-gray-600 dark:text-gray-400 text-sm">
               Add your first crop to start receiving smart care recommendations.
             </p>
 

@@ -15,6 +15,7 @@
     "google-auth-library": "^11.0.0",
     "jsonwebtoken": "^9.0.3",
     "mailtrap": "^4.8.0",
+    "mongodb": "^7.6.0",
     "mongoose": "^8.24.2",
     "multer": "^2.2.0",
     "nodemailer": "^9.0.5",

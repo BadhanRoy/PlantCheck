@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
@@ -34,37 +33,6 @@ function DashboardPage() {
   const [previewImage, setPreviewImage] = useState(null);
 
   // =========================
-  // PLANTS STATE
-  // =========================
-
-  const [plants] = useState([
-    {
-      id: 1,
-      name: 'Monstera Deliciosa',
-      status: 'Healthy',
-      lastChecked: '2024-01-15',
-    },
-    {
-      id: 2,
-      name: 'Fiddle Leaf Fig',
-      status: 'Needs Attention',
-      lastChecked: '2024-01-14',
-    },
-    {
-      id: 3,
-      name: 'Snake Plant',
-      status: 'Healthy',
-      lastChecked: '2024-01-13',
-    },
-    {
-      id: 4,
-      name: 'Peace Lily',
-      status: 'Needs Attention',
-      lastChecked: '2024-01-12',
-    },
-  ]);
-
-  // =========================
   // DIAGNOSIS HISTORY
   // =========================
 
@@ -75,7 +43,6 @@ function DashboardPage() {
     needsWatering: 0,
     rainExpected: 0,
   });
-
 
   // =========================
   // LOAD USER DATA
@@ -327,7 +294,6 @@ function DashboardPage() {
     setUploadProgress(0);
   };
 
-
   // =========================
   // DATE FORMAT
   // =========================
@@ -350,18 +316,8 @@ function DashboardPage() {
 
   const getStatusColor = (status) => {
     return status === 'Healthy'
-      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
       : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400';
-  };
-
-  // =========================
-  // STATUS ICON
-  // =========================
-
-  const getStatusIcon = (status) => {
-    return status === 'Healthy'
-      ? '✅'
-      : '⚠️';
   };
 
   // =========================
@@ -369,13 +325,13 @@ function DashboardPage() {
   // =========================
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-200">
 
       {/* =====================================================
           NAVBAR
       ====================================================== */}
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 md:px-8 h-16 flex items-center transition-colors duration-200">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-b border-blue-100 dark:border-gray-700 px-4 md:px-8 h-16 flex items-center transition-colors duration-200">
 
         <div className="max-w-7xl w-full mx-auto flex justify-between items-center">
 
@@ -427,7 +383,6 @@ function DashboardPage() {
         </div>
       </nav>
 
-
       {/* =====================================================
           MAIN CONTENT
       ====================================================== */}
@@ -438,7 +393,7 @@ function DashboardPage() {
             PROFILE SECTION
         ================================================== */}
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 md:p-8 transition-colors duration-200 mb-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-6 md:p-8 transition-colors duration-200 mb-6">
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
 
@@ -517,7 +472,6 @@ function DashboardPage() {
 
             </div>
 
-
             {/* USER INFO */}
 
             <div className="flex-1">
@@ -541,7 +495,6 @@ function DashboardPage() {
                   )}
 
                 </div>
-
 
                 {/* PROFILE BUTTONS */}
 
@@ -596,7 +549,6 @@ function DashboardPage() {
 
               </div>
 
-
               {formData.bio && (
                 <p className="text-gray-700 dark:text-gray-300 mt-2">
                   {formData.bio}
@@ -616,7 +568,6 @@ function DashboardPage() {
             </div>
 
           </div>
-
 
           {/* UPLOAD PROGRESS */}
 
@@ -645,13 +596,12 @@ function DashboardPage() {
 
         </div>
 
-
         {/* =================================================
             EDIT PROFILE
         ================================================== */}
 
         {isEditing && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200 mb-6">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-6 transition-colors duration-200 mb-6">
 
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Edit Profile
@@ -683,7 +633,6 @@ function DashboardPage() {
 
                 </div>
 
-
                 {/* EMAIL */}
 
                 <div>
@@ -705,7 +654,6 @@ function DashboardPage() {
                   </p>
 
                 </div>
-
 
                 {/* BIO */}
 
@@ -731,7 +679,6 @@ function DashboardPage() {
 
                 </div>
 
-
                 {/* LOCATION */}
 
                 <div>
@@ -750,7 +697,6 @@ function DashboardPage() {
                   />
 
                 </div>
-
 
                 {/* EXPERTISE */}
 
@@ -778,69 +724,57 @@ function DashboardPage() {
           </div>
         )}
 
-
         {/* =================================================
             STATS
         ================================================== */}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
 
-          {/* TOTAL PLANTS */}
+          {/* TOTAL CROPS */}
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 transition-colors duration-200">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-4 transition-colors duration-200">
 
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-              {plants.length}
+              {cropCareSummary.totalCrops}
             </p>
 
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Total Plants
+              Total Crops
             </p>
 
           </div>
 
+          {/* NEEDS WATERING */}
 
-          {/* HEALTHY */}
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 transition-colors duration-200">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-4 transition-colors duration-200">
 
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-              {
-                plants.filter(
-                  (p) => p.status === 'Healthy'
-                ).length
-              }
+              {cropCareSummary.needsWatering}
             </p>
 
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Healthy
+              Need Watering
             </p>
 
           </div>
 
+          {/* RAIN EXPECTED */}
 
-          {/* NEEDS ATTENTION */}
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 transition-colors duration-200">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-4 transition-colors duration-200">
 
             <p className="text-2xl font-bold text-red-600 dark:text-red-400">
-              {
-                plants.filter(
-                  (p) => p.status === 'Needs Attention'
-                ).length
-              }
+              {cropCareSummary.rainExpected}
             </p>
 
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Needs Attention
+              Rain Expected
             </p>
 
           </div>
-
 
           {/* DIAGNOSES */}
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 transition-colors duration-200">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-4 transition-colors duration-200">
 
             <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {diagnosisHistory.length}
@@ -854,18 +788,17 @@ function DashboardPage() {
 
         </div>
 
-
         {/* =================================================
             CROP CARE CARD
         ================================================== */}
 
-        <div className="overflow-hidden rounded-[26px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-green-50 p-6 shadow-[0_20px_50px_-30px_rgba(16,185,129,0.4)] mb-6 transition-colors duration-200">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-6 transition-colors duration-200 mb-6">
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
             <div>
 
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-700">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-green-700 dark:text-green-400">
                 Crop Care
               </p>
 
@@ -879,20 +812,19 @@ function DashboardPage() {
 
             </div>
 
-
             <div className="flex flex-wrap items-center justify-end gap-2">
               {'Notification' in window && Notification.permission !== 'granted' && (
                 <button
                   type="button"
                   onClick={enableWateringAlerts}
-                  className="rounded-xl border border-blue-200 bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
+                  className="rounded-xl border border-green-200 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2.5 text-sm font-semibold text-green-700 dark:text-green-400 transition hover:bg-green-50 dark:hover:bg-gray-700"
                 >
                   Enable hourly alerts
                 </button>
               )}
               <Link
                 to="/crop-care"
-                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-700 hover:via-indigo-700 hover:to-sky-600"
+                className="inline-flex items-center justify-center rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700"
               >
                 Open Crop Care
                 <span className="ml-2">→</span>
@@ -901,34 +833,33 @@ function DashboardPage() {
 
           </div>
 
-
           {/* CROP CARE SUMMARY */}
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
 
-            <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-600 via-indigo-600 to-sky-500 p-4 text-white shadow-md shadow-blue-600/15">
-              <p className="text-2xl font-bold">
+            <div className="rounded-2xl border border-green-100 dark:border-gray-700 bg-green-50/60 dark:bg-gray-900/50 p-4 transition-colors duration-200">
+              <p className="text-2xl font-bold text-green-700 dark:text-green-400">
                 {cropCareSummary.totalCrops}
               </p>
-              <p className="mt-1 text-sm text-blue-50">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Registered Crops
               </p>
             </div>
 
-            <div className="rounded-2xl border border-cyan-200 bg-gradient-to-br from-cyan-500 via-sky-500 to-blue-600 p-4 text-white shadow-md shadow-cyan-500/15">
-              <p className="text-2xl font-bold">
+            <div className="rounded-2xl border border-green-100 dark:border-gray-700 bg-green-50/60 dark:bg-gray-900/50 p-4 transition-colors duration-200">
+              <p className="text-2xl font-bold text-green-700 dark:text-green-400">
                 {cropCareSummary.needsWatering}
               </p>
-              <p className="mt-1 text-sm text-cyan-50">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Need Watering
               </p>
             </div>
 
-            <div className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-500 via-blue-500 to-sky-500 p-4 text-white shadow-md shadow-indigo-500/15">
-              <p className="text-2xl font-bold">
+            <div className="rounded-2xl border border-green-100 dark:border-gray-700 bg-green-50/60 dark:bg-gray-900/50 p-4 transition-colors duration-200">
+              <p className="text-2xl font-bold text-green-700 dark:text-green-400">
                 {cropCareSummary.rainExpected}
               </p>
-              <p className="mt-1 text-sm text-indigo-50">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Rain Expected
               </p>
             </div>
@@ -937,179 +868,93 @@ function DashboardPage() {
 
         </div>
 
-
         {/* =================================================
-            PLANT LIST & DIAGNOSIS HISTORY
+            DIAGNOSIS HISTORY (FULL WIDTH)
         ================================================== */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-xl shadow-sm border border-blue-100 dark:border-gray-700 p-6 transition-colors duration-200">
 
-          {/* =================================================
-              PLANT LIST
-          ================================================== */}
+          <div className="flex items-center justify-between mb-4">
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Recent Diagnoses
+            </h2>
 
-            <div className="flex items-center justify-between mb-4">
+            <Link
+              to="/diagnose"
+              className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors font-medium"
+            >
+              New Diagnosis →
+            </Link>
 
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                My Plants
-              </h2>
+          </div>
 
-              <Link
-                to="/diagnose"
-                className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors font-medium"
-              >
-                + Add Plant
-              </Link>
+          <div className="space-y-3">
 
-            </div>
-
-
-            {plants.length === 0 ? (
+            {diagnosisHistory.length === 0 ? (
 
               <div className="text-center py-8">
 
                 <p className="text-gray-600 dark:text-gray-400">
-                  No plants yet.
+                  No diagnoses yet.
                 </p>
 
               </div>
 
             ) : (
 
-              <div className="space-y-3">
+              diagnosisHistory.map((diagnosis) => (
 
-                {plants.map((plant) => (
+                <div
+                  key={diagnosis._id || diagnosis.id}
+                  className="p-3 bg-blue-50/60 dark:bg-gray-900/50 rounded-lg border border-blue-100 dark:border-gray-700 transition-colors duration-200"
+                >
 
-                  <div
-                    key={plant.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200"
-                  >
+                  <div className="flex items-center justify-between">
 
                     <div>
 
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        {plant.name}
-                      </p>
+                      <div className="flex items-center gap-2">
 
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Last checked: {formatDate(plant.lastChecked)}
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          {diagnosis.plantName}
+                        </h3>
+
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                            diagnosis.status
+                          )}`}
+                        >
+                          {diagnosis.status}
+                        </span>
+
+                      </div>
+
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        {diagnosis.diagnosis}
                       </p>
 
                     </div>
 
+                    <div className="text-right">
 
-                    <span
-                      className={`px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                        plant.status
-                      )}`}
-                    >
-                      {getStatusIcon(plant.status)} {plant.status}
-                    </span>
+                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">
+                        {diagnosis.confidence}% confidence
+                      </span>
+
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        {formatDate(diagnosis.createdAt || diagnosis.date)}
+                      </p>
+
+                    </div>
 
                   </div>
-
-                ))}
-
-              </div>
-
-            )}
-
-          </div>
-
-
-          {/* =================================================
-              DIAGNOSIS HISTORY
-          ================================================== */}
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
-
-            <div className="flex items-center justify-between mb-4">
-
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Recent Diagnoses
-              </h2>
-
-              <Link
-                to="/diagnose"
-                className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors font-medium"
-              >
-                New Diagnosis →
-              </Link>
-
-            </div>
-
-
-            <div className="space-y-3">
-
-              {diagnosisHistory.length === 0 ? (
-
-                <div className="text-center py-8">
-
-                  <p className="text-gray-600 dark:text-gray-400">
-                    No diagnoses yet.
-                  </p>
 
                 </div>
 
-              ) : (
+              ))
 
-                diagnosisHistory.map((diagnosis) => (
-
-                  <div
-                    key={diagnosis._id || diagnosis.id}
-                    className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200"
-                  >
-
-                    <div className="flex items-center justify-between">
-
-                      <div>
-
-                        <div className="flex items-center gap-2">
-
-                          <h3 className="font-medium text-gray-900 dark:text-white">
-                            {diagnosis.plantName}
-                          </h3>
-
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
-                              diagnosis.status
-                            )}`}
-                          >
-                            {diagnosis.status}
-                          </span>
-
-                        </div>
-
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                          {diagnosis.diagnosis}
-                        </p>
-
-                      </div>
-
-
-                      <div className="text-right">
-
-                        <span className="text-xs text-green-600 dark:text-green-400 font-medium">
-                          {diagnosis.confidence}% confidence
-                        </span>
-
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {formatDate(diagnosis.createdAt || diagnosis.date)}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                ))
-
-              )}
-
-            </div>
+            )}
 
           </div>
 
@@ -1117,12 +962,11 @@ function DashboardPage() {
 
       </div>
 
-
       {/* =====================================================
           FOOTER
       ====================================================== */}
 
-      <footer className="border-t border-gray-200 dark:border-gray-700 py-6 px-4 md:px-8 max-w-7xl mx-auto transition-colors duration-200">
+      <footer className="border-t border-blue-100 dark:border-gray-700 py-6 px-4 md:px-8 max-w-7xl mx-auto transition-colors duration-200">
 
         <div className="text-center text-sm text-gray-500 dark:text-gray-400">
 
@@ -1139,4 +983,3 @@ function DashboardPage() {
 }
 
 export default DashboardPage;
-
