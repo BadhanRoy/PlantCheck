@@ -2,7 +2,8 @@
 
 PlantCheck — Smart Agriculture Platform
 
-- Plant disease diagnosis powered by a DINOv2 + CLIP feature-fusion model, achieving 78.83% accuracy on the PlantWild dataset.
+-  Plant disease diagnosis powered by a **DINOv2 + CLIP feature-fusion model**, achieving **78.83% accuracy on the PlantWild dataset**.
+- **Knowledge Distillation:** A DINOv2 teacher model (~72% accuracy) was used to distill knowledge into a lightweight **ShuffleNetV2 student model**, achieving **64.83% accuracy** on PlantWild.
 - Crop journals, watering reminders, weather information, and crop care tools.
 - Community posts, comments, authentication, and diagnosis history.
 
